@@ -1,3 +1,4 @@
+let selectedMessenger = null;
 document.addEventListener('DOMContentLoaded', ()=>{
 // ======================
 // СОСТОЯНИЕ
@@ -255,13 +256,13 @@ document.querySelectorAll(".messenger-button").forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const messenger = button.dataset.messenger;
+        selectedMessenger = button.dataset.messenger;
 
         showPage("page10");
 
         setTimeout(() => {
 
-            openMessenger(messenger);
+            openMessenger(selectedMessenger);
 
         }, 5000);
 
@@ -302,10 +303,12 @@ function openMessenger(messenger){
     if(messenger==="instagram"){
 
         window.open(
-            "https://instagram.com/ТВОЙ_ЛОГИН",
+            "https://instagram.com/romankyrlig",
             "_blank"
         );
 
     }
 
 }
+
+document.addEventListener("DOMContentLoaded",()=>{const b=document.getElementById("openNowButton"); if(b){b.addEventListener("click",()=>openMessenger(selectedMessenger));}});
