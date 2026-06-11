@@ -1,6 +1,105 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     background:#F7F3EE;
-    margin:0;
-    font-family:'Georgia', serif;
+    font-family: Georgia, serif;
+    color:#554841;
+}
+
+.page{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.content{
+    width:90%;
+    max-width:400px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.quote{
+    font-size:22px;
+    line-height:1.5;
+    text-align:center;
+
+    margin-bottom:70px;
+}
+
+.envelope{
+    width:300px;
+    height:190px;
+
+    background:#FFF8F1;
+
+    border-radius:10px;
+
+    position:relative;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:60px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.envelope::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:0;
+    height:0;
+
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-top:95px solid #EFE5DA;
+}
+
+.letter-text{
+    font-size:28px;
+    font-style:italic;
+
+    margin-top:40px;
+}
+
+.main-button{
+
+    width:220px;
+
+    height:60px;
+
+    border:none;
+
+    background:#D88F91;
+
+    color:white;
+
+    border-radius:18px;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.main-button:hover{
+    background:#C97D80;
 }
