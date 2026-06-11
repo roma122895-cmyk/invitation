@@ -264,60 +264,8 @@ document.querySelectorAll(".messenger-button").forEach(button => {
     });
 
 });
-
-
-// ======================
-// СОХРАНЕНИЕ СОСТОЯНИЯ
-// ======================
-
-function saveState(){
-
-    localStorage.setItem(
-
-        "invitationState",
-
-        JSON.stringify(state)
-
-    );
-
-}
-
-
-// ======================
-// ВОССТАНОВЛЕНИЕ
-// ======================
-
-function loadState(){
-
-    let saved = localStorage.getItem("invitationState");
-
-    if(saved){
-
-        let data = JSON.parse(saved);
-
-        state.currentPage = data.currentPage || "page1";
-
-        state.meeting = data.meeting || null;
-
-        state.history = data.history || [];
-
-    }
-
-}
-
-
-// ======================
-// АВТОСОХРАНЕНИЕ
-// ======================
-
-setInterval(saveState,1000);
-
-
-// ======================
 // СТАРТ
-// ======================
 
-loadState();
+showPage("page1", false);
 
-showPage(state.currentPage,false);
 });
