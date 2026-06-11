@@ -322,13 +322,13 @@ button:active{
 
     position:absolute;
 
-    left:10%;
+    left:12%;
 
-    top:25px;
+    top:45px;
 
-    width:80%;
+    width:76%;
 
-    height:150px;
+    height:135px;
 
     background:white;
 
@@ -342,13 +342,13 @@ button:active{
 
     font-family:'Playfair Display',serif;
 
-    font-size:30px;
+    font-size:28px;
 
     box-shadow:
 
-    0 15px 25px rgba(0,0,0,.08);
+        0 20px 35px rgba(0,0,0,.12);
 
-    z-index:1;
+    z-index:2;
 
     transition:
 
@@ -408,14 +408,6 @@ button:active{
 }
 
 .envelope.open .letter{
-
-    transform:translateY(-110px);
-
-    box-shadow:
-
-        0 25px 40px rgba(0,0,0,.12);
-
-}
 /* OPEN BUTTON */
 
 .open-button{
@@ -634,25 +626,60 @@ h1{
     z-index:4;
 }
 
-.envelope-top{
-    z-index:5;
-}
 
 
-.envelope-left,
-.envelope-right,
-.envelope-bottom{
 
-    display:none;
-
-}
 
 .envelope-back{
 
+    position:absolute;
+
+    inset:0;
+
     background:#F2E5D8;
 
-    border-radius:12px;
+    border-radius:14px;
 
     overflow:hidden;
+
+    box-shadow:
+
+        0 15px 35px rgba(0,0,0,.08);
+
+    z-index:1;
+
+}
+
+.envelope-back::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:0;
+
+    width:100%;
+
+    height:95px;
+
+    background:#E9DACB;
+
+    clip-path:polygon(
+
+        0 0,
+
+        50% 100%,
+
+        100% 0,
+
+        100% 100%,
+
+        0 100%
+
+    );
+
+    z-index:3;
 
 }
