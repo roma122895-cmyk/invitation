@@ -1,509 +1,314 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+let selectedMessenger = null;
+document.addEventListener('DOMContentLoaded', ()=>{
+// ======================
+// СОСТОЯНИЕ
+// ======================
 
-    <title>Для тебя 😊</title>
+const state = {
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    currentPage: "page1",
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    meeting: null,
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap"
-          rel="stylesheet">
+    history: []
 
-    <link rel="stylesheet"
-          href="style.css">
-</head>
+};
 
-<body>
 
-<div class="background"></div>
+// ======================
+// ЭЛЕМЕНТЫ
+// ======================
 
-<div class="app">
+const pages = document.querySelectorAll(".page");
 
-    <!-- ПРОГРЕСС -->
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-    </div>
+const backButton = document.getElementById("backButton");
 
+const progressFill = document.querySelector(".progress-fill");
 
-    <!-- КНОПКА НАЗАД -->
-    <div class="back-container">
-        <button id="backButton"
-                class="back-button">
-            ← Назад
-        </button>
-    </div>
 
+// ======================
+// ПРОГРЕСС
+// ======================
 
+const progressMap = {
 
-    <!-- PAGE 1 -->
+    page1:10,
+    page2:20,
+    page3:30,
+    page4:40,
+    page7:50,
+    page5:60,
+    page6:75,
+    page9:90,
+    page10:100
 
-    <section class="page active"
-             id="page1">
+};
 
-        <div class="card">
 
-            <div class="quote">
+// ======================
+// ПОКАЗАТЬ СТРАНИЦУ
+// ======================
 
-                Иногда самые интересные знакомства начинаются неожиданно.
+function showPage(pageId, addHistory=true){
 
-            </div>
+    if(addHistory){
 
-            <div class="envelope">
+        state.history.push(state.currentPage);
 
-                Для тебя
+    }
 
-            </div>
+    pages.forEach(page=>{
 
-            <button data-next="page2">
+        page.classList.remove("active");
 
-                Открыть
+    });
 
-            </button>
+    document
+        .getElementById(pageId)
+        .classList
+        .add("active");
 
-        </div>
+    state.currentPage = pageId;
 
-    </section>
+    updateBackButton();
 
+    updateProgress();
 
+    window.scrollTo({
 
-    <!-- PAGE 2 -->
+        top:0,
 
-    <section class="page"
-             id="page2">
+        behavior:"smooth"
 
-        <div class="card">
+    });
 
-            <h1>Привет 😊</h1>
+}
 
-            <p>
 
-                Кажется, у моей сестры и вашей общей подруги был свой план по поводу нашего знакомства.
+// ======================
+// НАЗАД
+// ======================
 
-            </p>
+function historyBack(){
 
-            <p>
+    if(state.history.length===0)
+        return;
 
-                Я решил не спорить с ними и просто сделать первый шаг.
+    let prevPage = state.history.pop();
 
-            </p>
+    showPage(prevPage,false);
 
-            <p>
+}
 
-                Меня зовут Роман. Буду рад познакомиться с тобой поближе и узнать тебя лучше.
 
-            </p>
+backButton.addEventListener("click",historyBack);
 
-            <button data-next="page3">
 
-                Продолжить
+// ======================
+// КНОПКА НАЗАД
+// ======================
 
-            </button>
+function updateBackButton(){
 
-        </div>
+    if(
 
-    </section>
+        state.currentPage==="page1" ||
 
+        state.currentPage==="page8" ||
 
+        state.currentPage==="page10"
 
-    <!-- PAGE 3 -->
+    ){
 
-    <section class="page"
-             id="page3">
+        backButton.style.display="none";
 
-        <div class="card">
+    }
 
-            <h1>
+    else{
 
-                Немного обо мне
+        backButton.style.display="block";
 
-            </h1>
+    }
 
-            <p>
+}
 
-                💻 Как ты уже заметила, работаю в IT-сфере.
-                Иначе откуда бы взялся этот сайт? 😄
 
-            </p>
+// ======================
+// ПРОГРЕСС БАР
+// ======================
 
-            <p>
+function updateProgress(){
 
-                🌍 Люблю путешествия и новые места.
+    let value = progressMap[state.currentPage] || 100;
 
-            </p>
+    progressFill.style.width = value + "%";
 
-            <p>
+}
+// ======================
+// КНОПКИ ПЕРЕХОДОВ
+// ======================
 
-                😄 Не считаю себя идеальным,
-                зато умею смеяться над собой.
+document.querySelectorAll("[data-next]").forEach(button => {
 
-            </p>
+    button.addEventListener("click", () => {
 
-            <p>
+        const nextPage = button.dataset.next;
 
-                😊 И да, сделать этот сайт оказалось проще,
-                чем придумать, как красиво сделать первый шаг.
+        showPage(nextPage);
 
-            </p>
+    });
 
-            <button data-next="page4">
+});
 
-                Ещё чуть-чуть
 
-            </button>
+// ======================
+// ВЫБОР ВСТРЕЧИ
+// ======================
 
-        </div>
+document.querySelectorAll(".meeting-button").forEach(button => {
 
-    </section>
+    button.addEventListener("click", () => {
 
+        state.meeting = button.dataset.meeting;
 
+        updateMeetingText();
 
-    <!-- PAGE 4 -->
+        showPage("page6");
 
-    <section class="page"
-             id="page4">
+    });
 
-        <div class="card">
+});
 
-            <h1>
 
-                Хочешь познакомиться со мной поближе?
+// ======================
+// ТЕКСТ НА PAGE6
+// ======================
 
-            </h1>
+function updateMeetingText(){
 
-            <button data-next="page7">
+    const text = document.getElementById("meetingText");
 
-                Да, с удовольствием
+    switch(state.meeting){
 
-            </button>
+        case "coffee":
 
-            <button data-next="page7">
+            text.innerHTML =
+            "И, кстати, идея выпить вместе кофе мне очень нравится 😊";
 
-                Почему бы и нет
+            break;
 
-            </button>
 
-            <button data-next="page9">
+        case "walk":
 
-                Давай сначала пообщаемся
+            text.innerHTML =
+            "Кажется, у нас уже появилась идея для первой прогулки 😊";
 
-            </button>
+            break;
 
-            <button data-next="page8">
 
-                Сейчас не лучшее время
+        case "icecream":
 
-            </button>
+            text.innerHTML =
+            "Мороженое и душевные разговоры звучат очень уютно 😊";
 
-        </div>
+            break;
 
-    </section>
-    <!-- PAGE 5 -->
 
-    <section class="page"
-             id="page5">
+        case "cafe":
 
-        <div class="card">
+            text.innerHTML =
+            "Уютное кафе и хорошая компания — отличный вариант 😊";
 
-            <h1>
+            break;
 
-                Какой вариант встречи тебе ближе?
 
-            </h1>
+        case "unusual":
 
-            <button class="meeting-button"
-                    data-meeting="coffee"
-                    data-next="page6">
+            text.innerHTML =
+            "Люблю необычные идеи, думаю, нам будет интересно 😊";
 
-                ☕ Кофе
+            break;
 
-            </button>
 
-            <button class="meeting-button"
-                    data-meeting="walk"
-                    data-next="page6">
+        case "chance":
 
-                🚶 Прогулка
+            text.innerHTML =
+            "Иногда самые интересные события происходят случайно 😊";
 
-            </button>
+            break;
 
-            <button class="meeting-button"
-                    data-meeting="icecream"
-                    data-next="page6">
 
-                🍨 Мороженое и разговоры обо всём
+        default:
 
-            </button>
+            text.innerHTML =
+            "И если ты дочитала до этого места, значит, мне уже немного повезло 😊";
 
-            <button class="meeting-button"
-                    data-meeting="cafe"
-                    data-next="page6">
+    }
 
-                🍷 Уютное кафе
+}
 
-            </button>
 
-            <button class="meeting-button"
-                    data-meeting="unusual"
-                    data-next="page6">
+// ======================
+// МЕССЕНДЖЕРЫ
+// ======================
 
-                🎳 Что-нибудь необычное
+document.querySelectorAll(".messenger-button").forEach(button => {
 
-            </button>
+    button.addEventListener("click", () => {
 
-            <button class="meeting-button"
-                    data-meeting="chance"
-                    data-next="page6">
+        selectedMessenger = button.dataset.messenger;
 
-                🎲 Довериться случаю
+        showPage("page10");
 
-            </button>
+        setTimeout(() => {
 
-        </div>
+            openMessenger(selectedMessenger);
 
-    </section>
+        }, 5000);
 
+    });
 
+});
+// СТАРТ
 
-    <!-- PAGE 6 -->
+showPage("page1", false);
 
-    <section class="page"
-             id="page6">
+});
+function openMessenger(messenger){
 
-        <div class="card">
+    if(messenger==="telegram"){
 
-            <h1>
+        window.open(
+            "https://t.me/morgan_124?text=" +
+            encodeURIComponent(
+                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь?\n\nИли свой текст)))"
+            ),
+            "_blank"
+        );
 
-                Честно говоря...
+    }
 
-            </h1>
+    if(messenger==="whatsapp"){
 
-            <p>
+        window.open(
+            "https://wa.me/77753468810?text=" +
+            encodeURIComponent(
+                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь? \n\nИли свой текст))) "
+            ),
+            "_blank"
+        );
 
-                Мне рассказали о тебе столько хорошего,
-                что я решил не упускать возможность познакомиться.
+    }
 
-            </p>
+    if(messenger==="instagram"){
 
-            <p id="meetingText">
+        window.open(
+            "https://instagram.com/romankyrlig",
+            "_blank"
+        );
 
-                И если ты дочитала до этого места,
-                значит, мне уже немного повезло 😊
+    }
 
-            </p>
+}
 
-            <button data-next="page9">
-
-                Выбрать мессенджер
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PAGE 7 -->
-
-    <section class="page"
-             id="page7">
-
-        <div class="card">
-
-            <h1>
-
-                Тогда у меня есть один маленький вопрос 😊
-
-            </h1>
-
-            <h2>
-
-                Составишь мне компанию?
-
-            </h2>
-
-            <button data-next="page5">
-
-                Да
-
-            </button>
-
-            <button data-next="page9">
-
-                Давай сначала пообщаемся
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PAGE 8 -->
-
-    <section class="page"
-             id="page8">
-
-        <div class="card">
-
-            <h1>
-
-                Всё в порядке 🌿
-
-            </h1>
-
-            <p>
-
-                Я не хочу торопить события.
-
-            </p>
-
-            <p>
-
-                Просто знай, что мне было приятно
-                сделать этот маленький сайт для тебя.
-
-            </p>
-
-            <p>
-
-                Если когда-нибудь захочешь познакомиться —
-                я буду рад.
-
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PAGE 9 -->
-
-    <section class="page"
-             id="page9">
-
-        <div class="card">
-
-            <h1>
-
-                Где тебе будет удобнее продолжить общение?
-
-            </h1>
-
-            <button class="messenger-button"
-                    data-messenger="telegram">
-
-                ✈️ Telegram
-
-            </button>
-
-            <button class="messenger-button"
-                    data-messenger="whatsapp">
-
-                💬 WhatsApp
-
-            </button>
-
-            <button class="messenger-button"
-                    data-messenger="instagram">
-
-                📸 Instagram
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PAGE 10 -->
-
-    <section class="page"
-             id="page10">
-
-        <div class="card">
-
-            <h1>
-
-                Спасибо 😊
-
-            </h1>
-
-            <p>
-
-                Спасибо, что уделила мне несколько минут
-                и прошла этот маленький путь вместе со мной.
-
-            </p>
-
-            <p>
-
-                Честно говоря, сделать этот сайт оказалось проще,
-                чем придумать, как красиво сделать первый шаг.
-
-            </p>
-
-            <p>
-
-                Но я рад, что всё-таки решился.
-
-            </p>
-
-            <p>
-
-                И если ты сейчас читаешь эти строки,
-                значит, мне уже немного повезло 😊
-
-            </p>
-
-            <p>
-
-                А дальше, пожалуй, будет интереснее
-                узнавать друг друга уже без кнопок и страниц.
-
-            </p>
-
-            <p>
-
-                И кто знает, возможно, когда-нибудь
-                мы будем вспоминать этот сайт с улыбкой.
-
-            </p>
-
-            <p>
-
-                До связи.
-
-            </p>
-
-            <h2>
-
-                Роман
-
-            </h2>
-
-        </div>
-
-    </section>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
-.auto-open-text{margin-top:25px;opacity:.7;font-size:14px;}
-button:active{transform:scale(.98);}
+document.addEventListener("DOMContentLoaded",()=>{const b=document.getElementById("openNowButton"); if(b){b.addEventListener("click",()=>openMessenger(selectedMessenger));}});
