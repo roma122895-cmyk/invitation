@@ -313,3 +313,24 @@ function openMessenger(messenger){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{const b=document.getElementById("openNowButton"); if(b){b.addEventListener("click",()=>openMessenger(selectedMessenger));}});
+document.addEventListener('DOMContentLoaded',()=>{
+const btn=document.querySelector('#page1 [data-next]');
+const env=document.querySelector('.envelope');
+if(btn&&env){
+btn.addEventListener('click',(e)=>{
+e.preventDefault();
+env.classList.add('open');
+setTimeout(()=>showPage('page2'),900);
+},{once:true});
+}
+});
+
+document.addEventListener('DOMContentLoaded',()=>{
+const openBtn=document.querySelector('#page1 [data-next]');
+const env=document.querySelector('.envelope');
+if(openBtn && env){
+openBtn.addEventListener('click',(e)=>{
+env.classList.add('open');
+});
+}
+});
