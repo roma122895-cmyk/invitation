@@ -400,3 +400,20 @@ button{
     }
 
 }
+
+@media (max-width: 480px){
+
+.envelope{
+width:min(220px,70vw);
+height:120px;
+font-size:26px;
+overflow:hidden;
+}
+
+.envelope::before{
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-top:70px solid #EEDFD2;
+}
+
+}
