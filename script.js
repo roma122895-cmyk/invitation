@@ -147,14 +147,26 @@ document.querySelectorAll(".page");
 const progressFill =
 document.querySelector(".progress-fill");
 
+const progressDots =
+document.querySelectorAll(".progress-dot");
+
 const backButton =
 document.getElementById("backButton");
 
 
 function updateProgress(){
 
-    progressFill.style.width =
-        progressMap[state.currentPage] + "%";
+    if(progressFill){
+        progressFill.style.width =
+            progressMap[state.currentPage] + "%";
+    }
+
+    progressDots.forEach(dot=>{
+        dot.classList.toggle(
+            "active",
+            dot.dataset.page === state.currentPage
+        );
+    });
 
 }
 
