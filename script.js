@@ -369,12 +369,12 @@ const messengerLinks = {
 
     // Замените username на реальный Telegram, если он отличается.
     telegram:
-    "https://t.me/romankyrlig",
+    "https://t.me/morgan_1224",
 
     // Замените номер на реальный WhatsApp в международном формате без +.
     whatsapp:
-    "https://wa.me/77000000000?text=" +
-        encodeURIComponent("Привет 😊"),
+    "https://wa.me/77753468810?text=" +
+        encodeURIComponent("Ну вот ты и добралась до конца моего маленького сайта.\n\nНадеюсь, он смог немного поднять тебе настроение.\n\nБуду рад продолжить наше знакомство 🌿"),
 
     instagram:
     "https://instagram.com/romankyrlig"
