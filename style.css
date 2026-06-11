@@ -296,7 +296,9 @@ button:active{
 
     margin-bottom:60px;
 
-    transition:.8s;
+     transition:1s;
+
+    transform-style:preserve-3d;
 
 }
 
@@ -348,7 +350,11 @@ button:active{
 
     z-index:1;
 
-    transition:1s;
+    transition:
+
+        transform 1s ease,
+
+        box-shadow .5s ease;
 
 }
 
@@ -460,13 +466,17 @@ button:active{
 
 .envelope.open .envelope-top{
 
-    transform:rotateX(180deg);
+    transform:rotateX(-180deg);
 
 }
 
 .envelope.open .letter{
 
-    transform:translateY(-70px);
+    transform:translateY(-110px);
+
+    box-shadow:
+
+        0 25px 40px rgba(0,0,0,.12);
 
 }
 /* OPEN BUTTON */
@@ -645,4 +655,20 @@ h1{
 
 }
 
+}
+
+.envelope-back{
+    z-index:1;
+}
+
+.envelope-bottom{
+    z-index:2;
+}
+
+.letter{
+    z-index:4;
+}
+
+.envelope-top{
+    z-index:5;
 }
