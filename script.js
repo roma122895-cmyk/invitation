@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', ()=>{
 // ======================
 // СОСТОЯНИЕ
 // ======================
@@ -319,3 +320,4 @@ setInterval(saveState,1000);
 loadState();
 
 showPage(state.currentPage,false);
+});
