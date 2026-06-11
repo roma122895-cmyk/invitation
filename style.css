@@ -422,3 +422,49 @@ border-top:70px solid #EEDFD2;
 .envelope span{position:relative;z-index:3;margin-top:40px;}
 .flap{position:absolute;top:0;left:0;width:100%;height:55%;background:#eadccf;clip-path:polygon(0 0,100% 0,50% 100%);z-index:2;transition:transform .8s ease;transform-origin:top;}
 .envelope.open .flap{transform:rotateX(180deg);}
+
+.envelope{
+width:min(260px,80vw);
+height:170px;
+background:#fff8f3;
+position:relative;
+overflow:visible;
+}
+.envelope::after{display:none;}
+.envelope::before{
+content:'';
+position:absolute;
+top:0;left:0;width:100%;height:52%;
+background:#e8d9cc;
+clip-path:polygon(0 0,100% 0,50% 100%);
+z-index:1;
+transform-origin:top;
+transition:.8s;
+}
+.envelope span{position:relative;z-index:2;display:block;margin-top:45px;}
+.envelope.open::before{
+transform:rotateX(180deg);
+}
+
+/* v1.4 envelope */
+.envelope{
+overflow:hidden;
+border-radius:16px;
+}
+.envelope::after{
+content:'';
+position:absolute;
+bottom:-10px;
+left:10%;
+width:80%;
+height:70%;
+background:#fffaf5;
+border-radius:8px;
+box-shadow:0 -2px 10px rgba(0,0,0,.05);
+}
+.envelope.open::before{
+transform:rotateX(180deg);
+transform-origin:top;
+transition:.8s;
+}
+button:active{transform:scale(.98);}
