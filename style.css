@@ -417,3 +417,8 @@ border-top:70px solid #EEDFD2;
 }
 
 }
+
+.envelope{overflow:hidden;position:relative;background:#fff8f3;}
+.envelope span{position:relative;z-index:3;margin-top:40px;}
+.flap{position:absolute;top:0;left:0;width:100%;height:55%;background:#eadccf;clip-path:polygon(0 0,100% 0,50% 100%);z-index:2;transition:transform .8s ease;transform-origin:top;}
+.envelope.open .flap{transform:rotateX(180deg);}
