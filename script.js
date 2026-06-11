@@ -1,2 +1,1 @@
 
-showPage('page2')
