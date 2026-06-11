@@ -257,9 +257,13 @@ document.querySelectorAll(".messenger-button").forEach(button => {
 
         const messenger = button.dataset.messenger;
 
-        localStorage.setItem("messenger", messenger);
-
         showPage("page10");
+
+        setTimeout(() => {
+
+            openMessenger(messenger);
+
+        }, 5000);
 
     });
 
@@ -269,3 +273,39 @@ document.querySelectorAll(".messenger-button").forEach(button => {
 showPage("page1", false);
 
 });
+function openMessenger(messenger){
+
+    if(messenger==="telegram"){
+
+        window.open(
+            "https://t.me/morgan_124?text=" +
+            encodeURIComponent(
+                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь?\n\nИли свой текст)))"
+            ),
+            "_blank"
+        );
+
+    }
+
+    if(messenger==="whatsapp"){
+
+        window.open(
+            "https://wa.me/77753468810?text=" +
+            encodeURIComponent(
+                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь? \n\nИли свой текст))) "
+            ),
+            "_blank"
+        );
+
+    }
+
+    if(messenger==="instagram"){
+
+        window.open(
+            "https://instagram.com/ТВОЙ_ЛОГИН",
+            "_blank"
+        );
+
+    }
+
+}
