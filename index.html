@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,275 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div id="page1" class="page active">
+    <div class="background-decoration"></div>
 
-    <div class="content">
+    <!-- 1. Конверт -->
+    <section class="page active" id="page1">
 
-        <div class="quote">
-            Иногда самые интересные знакомства начинаются неожиданно.
-        </div>
+        <div class="card">
 
-        <div class="envelope">
-            <div class="letter-text">
+            <div class="quote">
+                Иногда самые интересные знакомства начинаются неожиданно.
+            </div>
+
+            <div class="envelope">
                 Для тебя
             </div>
+
+            <button onclick="showPage('page2')">
+                Открыть
+            </button>
+
         </div>
 
-        <button class="main-button">
-            Открыть
-        </button>
+    </section>
 
-    </div>
 
-</div>
+    <!-- 2. Привет -->
+    <section class="page" id="page2">
 
-<script src="script.js"></script>
+        <div class="card">
+
+            <h1>Привет 😊</h1>
+
+            <p>
+                Кажется, у моей сестры и вашей общей подруги был свой план по поводу нашего знакомства.
+            </p>
+
+            <p>
+                Я решил не спорить с ними и просто сделать первый шаг.
+            </p>
+
+            <p>
+                Меня зовут Роман. Буду рад познакомиться с тобой поближе и узнать тебя лучше.
+            </p>
+
+            <button onclick="showPage('page3')">
+                Продолжить
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 3. Обо мне -->
+    <section class="page" id="page3">
+
+        <div class="card">
+
+            <h1>Немного обо мне</h1>
+
+            <p>💻 Как ты уже заметила, работаю в IT-сфере. Иначе откуда бы взялся этот сайт? 😄</p>
+
+            <p>🌍 Люблю путешествия и новые места.</p>
+
+            <p>😄 Не считаю себя идеальным, зато умею смеяться над собой.</p>
+
+            <p>😊 И да, сделать этот сайт оказалось проще, чем придумать, как красиво сделать первый шаг.</p>
+
+            <button onclick="showPage('page4')">
+                Ещё чуть-чуть
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 4 -->
+    <section class="page" id="page4">
+
+        <div class="card">
+
+            <h1>Хочешь познакомиться со мной поближе?</h1>
+
+            <button onclick="showPage('page7')">
+                Да, с удовольствием
+            </button>
+
+            <button onclick="showPage('page7')">
+                Почему бы и нет
+            </button>
+
+            <button onclick="showPage('page9')">
+                Давай сначала пообщаемся
+            </button>
+
+            <button onclick="showPage('page8')">
+                Сейчас не лучшее время
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 7 -->
+    <section class="page" id="page7">
+
+        <div class="card">
+
+            <h1>Тогда у меня есть один маленький вопрос 😊</h1>
+
+            <h2>Составишь мне компанию?</h2>
+
+            <button onclick="showPage('page5')">
+                Да
+            </button>
+
+            <button onclick="showPage('page9')">
+                Давай сначала пообщаемся
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 5 -->
+    <section class="page" id="page5">
+
+        <div class="card">
+
+            <h1>Какой вариант встречи тебе ближе?</h1>
+
+            <button onclick="showPage('page6')">☕ Кофе</button>
+
+            <button onclick="showPage('page6')">🚶 Прогулка</button>
+
+            <button onclick="showPage('page6')">🍨 Мороженое и разговоры обо всём</button>
+
+            <button onclick="showPage('page6')">🍷 Уютное кафе</button>
+
+            <button onclick="showPage('page6')">🎳 Что-нибудь необычное</button>
+
+            <button onclick="showPage('page6')">🎲 Довериться случаю</button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 6 -->
+    <section class="page" id="page6">
+
+        <div class="card">
+
+            <h1>Честно говоря...</h1>
+
+            <p>
+                Мне рассказали о тебе столько хорошего, что я решил не упускать возможность познакомиться.
+            </p>
+
+            <p>
+                И если ты дочитала до этого места, значит, мне уже немного повезло 😊
+            </p>
+
+            <button onclick="showPage('page9')">
+                Выбрать мессенджер
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 8 -->
+    <section class="page" id="page8">
+
+        <div class="card">
+
+            <h1>Всё в порядке 🌿</h1>
+
+            <p>
+                Я не хочу торопить события.
+            </p>
+
+            <p>
+                Просто знай, что мне было приятно сделать этот маленький сайт для тебя.
+            </p>
+
+            <p>
+                Если когда-нибудь захочешь познакомиться — я буду рад.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- 9 -->
+    <section class="page" id="page9">
+
+        <div class="card">
+
+            <h1>Где тебе будет удобнее продолжить общение?</h1>
+
+            <button onclick="showPage('page10')">
+                Telegram
+            </button>
+
+            <button onclick="showPage('page10')">
+                WhatsApp
+            </button>
+
+            <button onclick="showPage('page10')">
+                Instagram
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- 10 -->
+    <section class="page" id="page10">
+
+        <div class="card">
+
+            <h1>Спасибо 😊</h1>
+
+            <p>
+                Спасибо, что уделила мне несколько минут и прошла этот маленький путь вместе со мной.
+            </p>
+
+            <p>
+                Честно говоря, сделать этот сайт оказалось проще, чем придумать, как красиво сделать первый шаг.
+            </p>
+
+            <p>
+                Но я рад, что всё-таки решился.
+            </p>
+
+            <p>
+                И если ты сейчас читаешь эти строки, значит, мне уже немного повезло 😊
+            </p>
+
+            <p>
+                А дальше, пожалуй, будет интереснее узнавать друг друга уже без кнопок и страниц.
+            </p>
+
+            <p>
+                И кто знает, возможно, когда-нибудь мы будем вспоминать этот сайт с улыбкой.
+            </p>
+
+            <p>
+                До связи.
+            </p>
+
+            <h2>Роман</h2>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
