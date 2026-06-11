@@ -1,34 +1,15 @@
-let selectedMessenger = null;
-document.addEventListener('DOMContentLoaded', ()=>{
-// ======================
-// СОСТОЯНИЕ
-// ======================
-
 const state = {
 
     currentPage: "page1",
 
-    meeting: null,
+    history: [],
 
-    history: []
+    meeting: "",
+
+    selectedMessenger: ""
 
 };
 
-
-// ======================
-// ЭЛЕМЕНТЫ
-// ======================
-
-const pages = document.querySelectorAll(".page");
-
-const backButton = document.getElementById("backButton");
-
-const progressFill = document.querySelector(".progress-fill");
-
-
-// ======================
-// ПРОГРЕСС
-// ======================
 
 const progressMap = {
 
@@ -36,26 +17,51 @@ const progressMap = {
     page2:20,
     page3:30,
     page4:40,
-    page7:50,
-    page5:60,
-    page6:75,
+    page5:50,
+    page6:60,
+    page7:70,
+    page8:80,
     page9:90,
     page10:100
 
 };
 
 
-// ======================
-// ПОКАЗАТЬ СТРАНИЦУ
-// ======================
+const pages =
+document.querySelectorAll(".page");
 
-function showPage(pageId, addHistory=true){
+const progressFill =
+document.querySelector(".progress-fill");
 
-    if(addHistory){
+const backButton =
+document.getElementById("backButton");
 
-        state.history.push(state.currentPage);
+
+function updateProgress(){
+
+    progressFill.style.width =
+        progressMap[state.currentPage] + "%";
+
+}
+
+
+function updateBackButton(){
+
+    if(state.history.length===0){
+
+        backButton.style.visibility="hidden";
 
     }
+    else{
+
+        backButton.style.visibility="visible";
+
+    }
+
+}
+
+
+function showPage(pageId){
 
     pages.forEach(page=>{
 
@@ -70,9 +76,9 @@ function showPage(pageId, addHistory=true){
 
     state.currentPage = pageId;
 
-    updateBackButton();
-
     updateProgress();
+
+    updateBackButton();
 
     window.scrollTo({
 
@@ -85,251 +91,263 @@ function showPage(pageId, addHistory=true){
 }
 
 
-// ======================
-// НАЗАД
-// ======================
-
 function historyBack(){
 
-    if(state.history.length===0)
+    if(state.history.length===0){
+
         return;
 
-    let prevPage = state.history.pop();
-
-    showPage(prevPage,false);
-
-}
-
-
-backButton.addEventListener("click",historyBack);
-
-
-// ======================
-// КНОПКА НАЗАД
-// ======================
-
-function updateBackButton(){
-
-    if(
-
-        state.currentPage==="page1" ||
-
-        state.currentPage==="page8" ||
-
-        state.currentPage==="page10"
-
-    ){
-
-        backButton.style.display="none";
-
     }
 
-    else{
+    const previousPage =
+        state.history.pop();
 
-        backButton.style.display="block";
-
-    }
-
-}
-
-
-// ======================
-// ПРОГРЕСС БАР
-// ======================
-
-function updateProgress(){
-
-    let value = progressMap[state.currentPage] || 100;
-
-    progressFill.style.width = value + "%";
+    showPage(previousPage);
 
 }
-// ======================
-// КНОПКИ ПЕРЕХОДОВ
-// ======================
+document
+.querySelectorAll("[data-next]")
+.forEach(button=>{
 
-document.querySelectorAll("[data-next]").forEach(button => {
+    button.addEventListener(
 
-    button.addEventListener("click", () => {
+        "click",
 
-        const nextPage = button.dataset.next;
-        if(state.currentPage==="page1"){document.querySelector(".envelope").classList.add("open"); setTimeout(()=>showPage(nextPage),800); return;}
+        ()=>{
 
-        showPage(nextPage);
+            const nextPage =
+                button.dataset.next;
 
-    });
+            state.history.push(
+                state.currentPage
+            );
+
+            if(state.currentPage==="page1"){
+
+                const envelope =
+                    document.querySelector(".envelope");
+
+                const openButton =
+                    document.querySelector(".open-button");
+
+                openButton.classList.add("hide");
+
+                envelope.classList.add("open");
+
+                setTimeout(()=>{
+
+                    showPage(nextPage);
+
+                },1100);
+
+                return;
+
+            }
+
+
+            showPage(nextPage);
+
+        }
+
+    );
 
 });
+const meetingText = {
 
+    coffee:
+        "Кажется, чашка кофе была бы отличным началом 😊",
 
-// ======================
-// ВЫБОР ВСТРЕЧИ
-// ======================
+    walk:
+        "Прогулки — один из лучших способов узнать друг друга 🌿",
 
-document.querySelectorAll(".meeting-button").forEach(button => {
+    icecream:
+        "Мороженое и разговоры обо всём звучат очень уютно 🍨",
 
-    button.addEventListener("click", () => {
+    cafe:
+        "Уютное кафе и приятная компания — отличный вариант ☕",
 
-        state.meeting = button.dataset.meeting;
+    unusual:
+        "Люблю необычные идеи 😊",
 
-        updateMeetingText();
+    chance:
+        "Иногда самые интересные решения принимает случай 🎲"
 
-        showPage("page6");
+};
 
-    });
-
-});
-
-
-// ======================
-// ТЕКСТ НА PAGE6
-// ======================
 
 function updateMeetingText(){
 
-    const text = document.getElementById("meetingText");
+    const textElement =
+        document.getElementById("meetingText");
 
-    switch(state.meeting){
+    if(!textElement){
 
-        case "coffee":
-
-            text.innerHTML =
-            "И, кстати, идея выпить вместе кофе мне очень нравится 😊";
-
-            break;
-
-
-        case "walk":
-
-            text.innerHTML =
-            "Кажется, у нас уже появилась идея для первой прогулки 😊";
-
-            break;
-
-
-        case "icecream":
-
-            text.innerHTML =
-            "Мороженое и душевные разговоры звучат очень уютно 😊";
-
-            break;
-
-
-        case "cafe":
-
-            text.innerHTML =
-            "Уютное кафе и хорошая компания — отличный вариант 😊";
-
-            break;
-
-
-        case "unusual":
-
-            text.innerHTML =
-            "Люблю необычные идеи, думаю, нам будет интересно 😊";
-
-            break;
-
-
-        case "chance":
-
-            text.innerHTML =
-            "Иногда самые интересные события происходят случайно 😊";
-
-            break;
-
-
-        default:
-
-            text.innerHTML =
-            "И если ты дочитала до этого места, значит, мне уже немного повезло 😊";
+        return;
 
     }
+
+    textElement.innerText =
+        meetingText[state.meeting] ||
+
+        "И если ты дочитала до этого места, значит, мне уже немного повезло 😊";
 
 }
 
 
-// ======================
-// МЕССЕНДЖЕРЫ
-// ======================
+document
+.querySelectorAll(".meeting-button")
+.forEach(button=>{
 
-document.querySelectorAll(".messenger-button").forEach(button => {
+    button.addEventListener(
 
-    button.addEventListener("click", () => {
+        "click",
 
-        selectedMessenger = button.dataset.messenger;
+        ()=>{
 
-        showPage("page10");
+            state.meeting =
+                button.dataset.meeting;
 
-        setTimeout(() => {
+            updateMeetingText();
 
-            openMessenger(selectedMessenger);
+        }
 
-        }, 5000);
-
-    });
-
-});
-// СТАРТ
-
-showPage("page1", false);
+    );
 
 });
-function openMessenger(messenger){
 
-    if(messenger==="telegram"){
 
-        window.open(
-            "https://t.me/morgan_124?text=" +
-            encodeURIComponent(
-                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь?\n\nИли свой текст)))"
-            ),
-            "_blank"
-        );
+const messengerLinks = {
+
+    telegram:
+    "https://t.me/USERNAME",
+
+    whatsapp:
+    "https://wa.me/77000000000?text=Привет😊",
+
+    instagram:
+    "https://instagram.com/romankyrlig"
+
+};
+
+
+let messengerOpened = false;
+
+
+function openMessenger(){
+
+    if(messengerOpened){
+
+        return;
 
     }
 
-    if(messenger==="whatsapp"){
+    if(!state.selectedMessenger){
 
-        window.open(
-            "https://wa.me/77753468810?text=" +
-            encodeURIComponent(
-                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь? \n\nИли свой текст))) "
-            ),
-            "_blank"
-        );
+        return;
 
     }
 
-    if(messenger==="instagram"){
+    messengerOpened = true;
 
-        window.open(
-            "https://instagram.com/romankyrlig",
-            "_blank"
-        );
-    }
+    window.open(
+
+        messengerLinks[state.selectedMessenger],
+
+        "_blank"
+
+    );
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{const b=document.getElementById("openNowButton"); if(b){b.addEventListener("click",()=>openMessenger(selectedMessenger));}});
-document.addEventListener('DOMContentLoaded',()=>{
-const btn=document.querySelector('#page1 [data-next]');
-const env=document.querySelector('.envelope');
-if(btn&&env){
-btn.addEventListener('click',(e)=>{
-e.preventDefault();
-env.classList.add('open');
-setTimeout(()=>showPage('page2'),900);
-},{once:true});
-}
-});
 
-document.addEventListener('DOMContentLoaded',()=>{
-const openBtn=document.querySelector('#page1 [data-next]');
-const env=document.querySelector('.envelope');
-if(openBtn && env){
-openBtn.addEventListener('click',(e)=>{
-env.classList.add('open');
+document
+.querySelectorAll(".messenger-button")
+.forEach(button=>{
+
+    button.addEventListener(
+
+        "click",
+
+        ()=>{
+
+            messengerOpened = false;
+
+            state.selectedMessenger =
+                button.dataset.messenger;
+
+            state.history.push(
+                state.currentPage
+            );
+
+            showPage("page10");
+
+            setTimeout(
+
+                ()=>{
+
+                    openMessenger();
+
+                },
+
+                5000
+
+            );
+
+        }
+
+    );
+
 });
+const openNowButton =
+document.getElementById(
+    "openNowButton"
+);
+
+
+if(openNowButton){
+
+    openNowButton.addEventListener(
+
+        "click",
+
+        openMessenger
+
+    );
+
 }
-});
+
+
+function init(){
+
+    updateProgress();
+
+    updateBackButton();
+
+    showPage("page1");
+
+}
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    init
+
+);
+
+
+console.log(
+
+    "Invitation v1.6 loaded"
+
+);
+
+
+backButton.addEventListener(
+
+    "click",
+
+    historyBack
+
+);
