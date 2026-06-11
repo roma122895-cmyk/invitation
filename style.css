@@ -1,314 +1,402 @@
-let selectedMessenger = null;
-document.addEventListener('DOMContentLoaded', ()=>{
-// ======================
-// СОСТОЯНИЕ
-// ======================
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-const state = {
+:root{
 
-    currentPage: "page1",
-
-    meeting: null,
-
-    history: []
-
-};
-
-
-// ======================
-// ЭЛЕМЕНТЫ
-// ======================
-
-const pages = document.querySelectorAll(".page");
-
-const backButton = document.getElementById("backButton");
-
-const progressFill = document.querySelector(".progress-fill");
-
-
-// ======================
-// ПРОГРЕСС
-// ======================
-
-const progressMap = {
-
-    page1:10,
-    page2:20,
-    page3:30,
-    page4:40,
-    page7:50,
-    page5:60,
-    page6:75,
-    page9:90,
-    page10:100
-
-};
-
-
-// ======================
-// ПОКАЗАТЬ СТРАНИЦУ
-// ======================
-
-function showPage(pageId, addHistory=true){
-
-    if(addHistory){
-
-        state.history.push(state.currentPage);
-
-    }
-
-    pages.forEach(page=>{
-
-        page.classList.remove("active");
-
-    });
-
-    document
-        .getElementById(pageId)
-        .classList
-        .add("active");
-
-    state.currentPage = pageId;
-
-    updateBackButton();
-
-    updateProgress();
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
+    --bg:#F8F4EF;
+    --card:rgba(255,255,255,.75);
+    --text:#5D534D;
+    --button:#D6A19F;
+    --button-hover:#C88D8A;
 
 }
 
+body{
 
-// ======================
-// НАЗАД
-// ======================
+    background:var(--bg);
 
-function historyBack(){
+    color:var(--text);
 
-    if(state.history.length===0)
-        return;
+    font-family:'Inter',sans-serif;
 
-    let prevPage = state.history.pop();
-
-    showPage(prevPage,false);
+    overflow-x:hidden;
 
 }
 
+.background{
 
-backButton.addEventListener("click",historyBack);
+    position:fixed;
 
+    inset:0;
 
-// ======================
-// КНОПКА НАЗАД
-// ======================
+    background:
+    radial-gradient(circle at top left,#FDF2EA,transparent),
+    radial-gradient(circle at bottom right,#F4EAE5,transparent);
 
-function updateBackButton(){
-
-    if(
-
-        state.currentPage==="page1" ||
-
-        state.currentPage==="page8" ||
-
-        state.currentPage==="page10"
-
-    ){
-
-        backButton.style.display="none";
-
-    }
-
-    else{
-
-        backButton.style.display="block";
-
-    }
+    z-index:-1;
 
 }
 
+.app{
 
-// ======================
-// ПРОГРЕСС БАР
-// ======================
-
-function updateProgress(){
-
-    let value = progressMap[state.currentPage] || 100;
-
-    progressFill.style.width = value + "%";
-
-}
-// ======================
-// КНОПКИ ПЕРЕХОДОВ
-// ======================
-
-document.querySelectorAll("[data-next]").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        const nextPage = button.dataset.next;
-
-        showPage(nextPage);
-
-    });
-
-});
-
-
-// ======================
-// ВЫБОР ВСТРЕЧИ
-// ======================
-
-document.querySelectorAll(".meeting-button").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        state.meeting = button.dataset.meeting;
-
-        updateMeetingText();
-
-        showPage("page6");
-
-    });
-
-});
-
-
-// ======================
-// ТЕКСТ НА PAGE6
-// ======================
-
-function updateMeetingText(){
-
-    const text = document.getElementById("meetingText");
-
-    switch(state.meeting){
-
-        case "coffee":
-
-            text.innerHTML =
-            "И, кстати, идея выпить вместе кофе мне очень нравится 😊";
-
-            break;
-
-
-        case "walk":
-
-            text.innerHTML =
-            "Кажется, у нас уже появилась идея для первой прогулки 😊";
-
-            break;
-
-
-        case "icecream":
-
-            text.innerHTML =
-            "Мороженое и душевные разговоры звучат очень уютно 😊";
-
-            break;
-
-
-        case "cafe":
-
-            text.innerHTML =
-            "Уютное кафе и хорошая компания — отличный вариант 😊";
-
-            break;
-
-
-        case "unusual":
-
-            text.innerHTML =
-            "Люблю необычные идеи, думаю, нам будет интересно 😊";
-
-            break;
-
-
-        case "chance":
-
-            text.innerHTML =
-            "Иногда самые интересные события происходят случайно 😊";
-
-            break;
-
-
-        default:
-
-            text.innerHTML =
-            "И если ты дочитала до этого места, значит, мне уже немного повезло 😊";
-
-    }
+    min-height:100vh;
 
 }
 
+.page{
 
-// ======================
-// МЕССЕНДЖЕРЫ
-// ======================
+    min-height:100dvh;
 
-document.querySelectorAll(".messenger-button").forEach(button => {
+    display:none;
 
-    button.addEventListener("click", () => {
+    justify-content:center;
 
-        selectedMessenger = button.dataset.messenger;
+    align-items:center;
 
-        showPage("page10");
+    padding:max(70px, env(safe-area-inset-top)) 20px 100px;
 
-        setTimeout(() => {
+    animation:fade .5s ease;
 
-            openMessenger(selectedMessenger);
+}
 
-        }, 5000);
+.page.active{
 
-    });
+    display:flex;
 
-});
-// СТАРТ
+}
 
-showPage("page1", false);
+.card{
 
-});
-function openMessenger(messenger){
+    width:100%;
 
-    if(messenger==="telegram"){
+    max-width:540px;
 
-        window.open(
-            "https://t.me/morgan_124?text=" +
-            encodeURIComponent(
-                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь?\n\nИли свой текст)))"
-            ),
-            "_blank"
-        );
+    background:var(--card);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:30px;
+
+    padding:clamp(20px,4vw,40px);
+
+    text-align:center;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.08);
+
+}
+
+h1{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:clamp(28px,6vw,42px);
+
+    font-weight:400;
+
+    margin-bottom:30px;
+
+}
+
+h2{
+
+    font-family:'Playfair Display',serif;
+
+    font-weight:400;
+
+    margin-bottom:25px;
+
+}
+
+p{
+
+    line-height:1.9;
+
+    font-size:clamp(15px,3vw,17px);
+
+    margin-bottom:18px;
+
+}
+
+.quote{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:30px;
+
+    line-height:1.5;
+
+    margin-bottom:60px;
+
+}
+
+button{
+
+    width:100%;
+
+    border:none;
+
+    background:var(--button);
+
+    color:white;
+
+    padding:18px;
+
+    margin-top:15px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:var(--button-hover);
+
+    transform:translateY(-2px);
+
+}
+.envelope{
+
+    width:260px;
+
+    height:180px;
+
+    margin:auto;
+
+    margin-bottom:60px;
+
+    background:#FFF8F3;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:32px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.envelope::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:0;
+
+    height:0;
+
+    border-left:130px solid transparent;
+    border-right:130px solid transparent;
+    border-top:90px solid #EEDFD2;
+
+}
+
+.progress-container{
+
+    position:fixed;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:90%;
+
+    max-width:500px;
+
+    z-index:100;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:8px;
+
+    background:rgba(255,255,255,.4);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:10%;
+
+    height:100%;
+
+    background:#D6A19F;
+
+    transition:.4s;
+
+}
+
+.back-container{
+
+    position:fixed;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:100;
+
+}
+
+.back-button{
+
+    width:150px;
+
+    background:#B8ADA7;
+
+}
+
+.back-button:hover{
+
+    background:#A99D96;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
 
     }
 
-    if(messenger==="whatsapp"){
+    to{
 
-        window.open(
-            "https://wa.me/77753468810?text=" +
-            encodeURIComponent(
-                "Привет 😊\n\nКажется, я успешно прошла твой маленький квест.\n\nНу что, продолжим знакомство уже здесь? \n\nИли свой текст))) "
-            ),
-            "_blank"
-        );
+        opacity:1;
 
-    }
-
-    if(messenger==="instagram"){
-
-        window.open(
-            "https://instagram.com/romankyrlig",
-            "_blank"
-        );
+        transform:translateY(0);
 
     }
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{const b=document.getElementById("openNowButton"); if(b){b.addEventListener("click",()=>openMessenger(selectedMessenger));}});
+@media(max-width:768px){
+
+    .card{
+
+        padding:30px 22px;
+
+        border-radius:25px;
+
+    }
+
+    .quote{
+
+        font-size:24px;
+
+    }
+
+    p{
+
+        font-size:16px;
+
+    }
+
+    .envelope{
+
+        width:220px;
+
+        height:150px;
+
+        font-size:28px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    h1{
+
+        font-size:30px;
+
+    }
+
+    .quote{
+
+        font-size:22px;
+
+    }
+
+    button{
+
+        padding:16px;
+
+        font-size:15px;
+
+    }
+
+}
+
+
+.back-container{
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:max(15px, env(safe-area-inset-bottom));
+    width:90%;
+    max-width:300px;
+    z-index:100;
+}
+
+button{
+    min-height:56px;
+}
+
+@media (max-width:400px){
+
+    .card{
+        border-radius:24px;
+    }
+
+    .quote{
+        font-size:20px;
+    }
+
+    h1{
+        font-size:26px;
+    }
+
+    button{
+        min-height:52px;
+        font-size:15px;
+    }
+
+}
