@@ -209,3 +209,24 @@ button:hover{
     }
 
 }
+.back-container{
+
+    position:fixed;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+}
+
+.back-button{
+
+    width:140px;
+
+    background:#B9ADA5;
+
+    border-radius:20px;
+
+}
