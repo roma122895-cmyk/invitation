@@ -1,507 +1,402 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    <title>Для тебя 😊</title>
+:root{
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    --bg:#F8F4EF;
+    --card:rgba(255,255,255,.75);
+    --text:#5D534D;
+    --button:#D6A19F;
+    --button-hover:#C88D8A;
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+}
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap"
-          rel="stylesheet">
+body{
 
-    <link rel="stylesheet"
-          href="style.css">
-</head>
+    background:var(--bg);
 
-<body>
+    color:var(--text);
 
-<div class="background"></div>
+    font-family:'Inter',sans-serif;
 
-<div class="app">
+    overflow-x:hidden;
 
-    <!-- ПРОГРЕСС -->
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-    </div>
+}
 
+.background{
 
-    <!-- КНОПКА НАЗАД -->
-    <div class="back-container">
-        <button id="backButton"
-                class="back-button">
-            ← Назад
-        </button>
-    </div>
+    position:fixed;
 
+    inset:0;
 
+    background:
+    radial-gradient(circle at top left,#FDF2EA,transparent),
+    radial-gradient(circle at bottom right,#F4EAE5,transparent);
 
-    <!-- PAGE 1 -->
+    z-index:-1;
 
-    <section class="page active"
-             id="page1">
+}
 
-        <div class="card">
+.app{
 
-            <div class="quote">
+    min-height:100vh;
 
-                Иногда самые интересные знакомства начинаются неожиданно.
+}
 
-            </div>
+.page{
 
-            <div class="envelope">
+    min-height:100dvh;
 
-                Для тебя
+    display:none;
 
-            </div>
+    justify-content:center;
 
-            <button data-next="page2">
+    align-items:center;
 
-                Открыть
+    padding:max(70px, env(safe-area-inset-top)) 20px 100px;
 
-            </button>
+    animation:fade .5s ease;
 
-        </div>
+}
 
-    </section>
+.page.active{
 
+    display:flex;
 
+}
 
-    <!-- PAGE 2 -->
+.card{
 
-    <section class="page"
-             id="page2">
+    width:100%;
 
-        <div class="card">
+    max-width:540px;
 
-            <h1>Привет 😊</h1>
+    background:var(--card);
 
-            <p>
+    backdrop-filter:blur(12px);
 
-                Кажется, у моей сестры и вашей общей подруги был свой план по поводу нашего знакомства.
+    border-radius:30px;
 
-            </p>
+    padding:clamp(20px,4vw,40px);
 
-            <p>
+    text-align:center;
 
-                Я решил не спорить с ними и просто сделать первый шаг.
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.08);
 
-            </p>
+}
 
-            <p>
+h1{
 
-                Меня зовут Роман. Буду рад познакомиться с тобой поближе и узнать тебя лучше.
+    font-family:'Playfair Display',serif;
 
-            </p>
+    font-size:clamp(28px,6vw,42px);
 
-            <button data-next="page3">
+    font-weight:400;
 
-                Продолжить
+    margin-bottom:30px;
 
-            </button>
+}
 
-        </div>
+h2{
 
-    </section>
+    font-family:'Playfair Display',serif;
 
+    font-weight:400;
 
+    margin-bottom:25px;
 
-    <!-- PAGE 3 -->
+}
 
-    <section class="page"
-             id="page3">
+p{
 
-        <div class="card">
+    line-height:1.9;
 
-            <h1>
+    font-size:clamp(15px,3vw,17px);
 
-                Немного обо мне
+    margin-bottom:18px;
 
-            </h1>
+}
 
-            <p>
+.quote{
 
-                💻 Как ты уже заметила, работаю в IT-сфере.
-                Иначе откуда бы взялся этот сайт? 😄
+    font-family:'Playfair Display',serif;
 
-            </p>
+    font-size:30px;
 
-            <p>
+    line-height:1.5;
 
-                🌍 Люблю путешествия и новые места.
+    margin-bottom:60px;
 
-            </p>
+}
 
-            <p>
+button{
 
-                😄 Не считаю себя идеальным,
-                зато умею смеяться над собой.
+    width:100%;
 
-            </p>
+    border:none;
 
-            <p>
+    background:var(--button);
 
-                😊 И да, сделать этот сайт оказалось проще,
-                чем придумать, как красиво сделать первый шаг.
+    color:white;
 
-            </p>
+    padding:18px;
 
-            <button data-next="page4">
+    margin-top:15px;
 
-                Ещё чуть-чуть
+    border-radius:18px;
 
-            </button>
+    cursor:pointer;
 
-        </div>
+    font-size:16px;
 
-    </section>
+    transition:.3s;
 
+}
 
+button:hover{
 
-    <!-- PAGE 4 -->
+    background:var(--button-hover);
 
-    <section class="page"
-             id="page4">
+    transform:translateY(-2px);
 
-        <div class="card">
+}
+.envelope{
 
-            <h1>
+    width:260px;
 
-                Хочешь познакомиться со мной поближе?
+    height:180px;
 
-            </h1>
+    margin:auto;
 
-            <button data-next="page7">
+    margin-bottom:60px;
 
-                Да, с удовольствием
+    background:#FFF8F3;
 
-            </button>
+    border-radius:14px;
 
-            <button data-next="page7">
+    display:flex;
 
-                Почему бы и нет
+    justify-content:center;
 
-            </button>
+    align-items:center;
 
-            <button data-next="page9">
+    position:relative;
 
-                Давай сначала пообщаемся
+    font-family:'Playfair Display',serif;
 
-            </button>
+    font-size:32px;
 
-            <button data-next="page8">
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
 
-                Сейчас не лучшее время
+}
 
-            </button>
+.envelope::before{
 
-        </div>
+    content:"";
 
-    </section>
-    <!-- PAGE 5 -->
+    position:absolute;
 
-    <section class="page"
-             id="page5">
+    top:0;
 
-        <div class="card">
+    left:0;
 
-            <h1>
+    width:0;
 
-                Какой вариант встречи тебе ближе?
+    height:0;
 
-            </h1>
+    border-left:130px solid transparent;
+    border-right:130px solid transparent;
+    border-top:90px solid #EEDFD2;
 
-            <button class="meeting-button"
-                    data-meeting="coffee"
-                    data-next="page6">
+}
 
-                ☕ Кофе
+.progress-container{
 
-            </button>
+    position:fixed;
 
-            <button class="meeting-button"
-                    data-meeting="walk"
-                    data-next="page6">
+    top:20px;
 
-                🚶 Прогулка
+    left:50%;
 
-            </button>
+    transform:translateX(-50%);
 
-            <button class="meeting-button"
-                    data-meeting="icecream"
-                    data-next="page6">
+    width:90%;
 
-                🍨 Мороженое и разговоры обо всём
+    max-width:500px;
 
-            </button>
+    z-index:100;
 
-            <button class="meeting-button"
-                    data-meeting="cafe"
-                    data-next="page6">
+}
 
-                🍷 Уютное кафе
+.progress-bar{
 
-            </button>
+    width:100%;
 
-            <button class="meeting-button"
-                    data-meeting="unusual"
-                    data-next="page6">
+    height:8px;
 
-                🎳 Что-нибудь необычное
+    background:rgba(255,255,255,.4);
 
-            </button>
+    border-radius:50px;
 
-            <button class="meeting-button"
-                    data-meeting="chance"
-                    data-next="page6">
+    overflow:hidden;
 
-                🎲 Довериться случаю
+}
 
-            </button>
+.progress-fill{
 
-        </div>
+    width:10%;
 
-    </section>
+    height:100%;
 
+    background:#D6A19F;
 
+    transition:.4s;
 
-    <!-- PAGE 6 -->
+}
 
-    <section class="page"
-             id="page6">
+.back-container{
 
-        <div class="card">
+    position:fixed;
 
-            <h1>
+    bottom:25px;
 
-                Честно говоря...
+    left:50%;
 
-            </h1>
+    transform:translateX(-50%);
 
-            <p>
+    z-index:100;
 
-                Мне рассказали о тебе столько хорошего,
-                что я решил не упускать возможность познакомиться.
+}
 
-            </p>
+.back-button{
 
-            <p id="meetingText">
+    width:150px;
 
-                И если ты дочитала до этого места,
-                значит, мне уже немного повезло 😊
+    background:#B8ADA7;
 
-            </p>
+}
 
-            <button data-next="page9">
+.back-button:hover{
 
-                Выбрать мессенджер
+    background:#A99D96;
 
-            </button>
+}
 
-        </div>
+@keyframes fade{
 
-    </section>
+    from{
 
+        opacity:0;
 
+        transform:translateY(15px);
 
-    <!-- PAGE 7 -->
+    }
 
-    <section class="page"
-             id="page7">
+    to{
 
-        <div class="card">
+        opacity:1;
 
-            <h1>
+        transform:translateY(0);
 
-                Тогда у меня есть один маленький вопрос 😊
+    }
 
-            </h1>
+}
 
-            <h2>
+@media(max-width:768px){
 
-                Составишь мне компанию?
+    .card{
 
-            </h2>
+        padding:30px 22px;
 
-            <button data-next="page5">
+        border-radius:25px;
 
-                Да
+    }
 
-            </button>
+    .quote{
 
-            <button data-next="page9">
+        font-size:24px;
 
-                Давай сначала пообщаемся
+    }
 
-            </button>
+    p{
 
-        </div>
+        font-size:16px;
 
-    </section>
+    }
 
+    .envelope{
 
+        width:220px;
 
-    <!-- PAGE 8 -->
+        height:150px;
 
-    <section class="page"
-             id="page8">
+        font-size:28px;
 
-        <div class="card">
+    }
 
-            <h1>
+}
 
-                Всё в порядке 🌿
+@media(max-width:480px){
 
-            </h1>
+    h1{
 
-            <p>
+        font-size:30px;
 
-                Я не хочу торопить события.
+    }
 
-            </p>
+    .quote{
 
-            <p>
+        font-size:22px;
 
-                Просто знай, что мне было приятно
-                сделать этот маленький сайт для тебя.
+    }
 
-            </p>
+    button{
 
-            <p>
+        padding:16px;
 
-                Если когда-нибудь захочешь познакомиться —
-                я буду рад.
+        font-size:15px;
 
-            </p>
+    }
 
-        </div>
+}
 
-    </section>
 
+.back-container{
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:max(15px, env(safe-area-inset-bottom));
+    width:90%;
+    max-width:300px;
+    z-index:100;
+}
 
+button{
+    min-height:56px;
+}
 
-    <!-- PAGE 9 -->
+@media (max-width:400px){
 
-    <section class="page"
-             id="page9">
+    .card{
+        border-radius:24px;
+    }
 
-        <div class="card">
+    .quote{
+        font-size:20px;
+    }
 
-            <h1>
+    h1{
+        font-size:26px;
+    }
 
-                Где тебе будет удобнее продолжить общение?
+    button{
+        min-height:52px;
+        font-size:15px;
+    }
 
-            </h1>
-
-            <button class="messenger-button"
-                    data-messenger="telegram">
-
-                ✈️ Telegram
-
-            </button>
-
-            <button class="messenger-button"
-                    data-messenger="whatsapp">
-
-                💬 WhatsApp
-
-            </button>
-
-            <button class="messenger-button"
-                    data-messenger="instagram">
-
-                📸 Instagram
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PAGE 10 -->
-
-    <section class="page"
-             id="page10">
-
-        <div class="card">
-
-            <h1>
-
-                Спасибо 😊
-
-            </h1>
-
-            <p>
-
-                Спасибо, что уделила мне несколько минут
-                и прошла этот маленький путь вместе со мной.
-
-            </p>
-
-            <p>
-
-                Честно говоря, сделать этот сайт оказалось проще,
-                чем придумать, как красиво сделать первый шаг.
-
-            </p>
-
-            <p>
-
-                Но я рад, что всё-таки решился.
-
-            </p>
-
-            <p>
-
-                И если ты сейчас читаешь эти строки,
-                значит, мне уже немного повезло 😊
-
-            </p>
-
-            <p>
-
-                А дальше, пожалуй, будет интереснее
-                узнавать друг друга уже без кнопок и страниц.
-
-            </p>
-
-            <p>
-
-                И кто знает, возможно, когда-нибудь
-                мы будем вспоминать этот сайт с улыбкой.
-
-            </p>
-
-            <p>
-
-                До связи.
-
-            </p>
-
-            <h2>
-
-                Роман
-
-            </h2>
-
-        </div>
-
-    </section>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+}
