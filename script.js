@@ -153,6 +153,7 @@ document.querySelectorAll("[data-next]").forEach(button => {
     button.addEventListener("click", () => {
 
         const nextPage = button.dataset.next;
+        if(state.currentPage==="page1"){document.querySelector(".envelope").classList.add("open"); setTimeout(()=>showPage(nextPage),800); return;}
 
         showPage(nextPage);
 
