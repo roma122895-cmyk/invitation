@@ -835,7 +835,6 @@ button:focus-visible{
     box-shadow:none;
 }
 
-
 .envelope.open .letter{
     opacity:1;
 }
