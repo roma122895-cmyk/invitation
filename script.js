@@ -1,1 +1,2 @@
 
+showPage('page2')
