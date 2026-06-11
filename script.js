@@ -307,7 +307,6 @@ function openMessenger(messenger){
             "https://instagram.com/romankyrlig",
             "_blank"
         );
-
     }
 
 }
