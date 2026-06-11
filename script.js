@@ -39,8 +39,12 @@ document.getElementById("backButton");
 
 function updateProgress(){
 
+    if(progressFill){
+
     progressFill.style.width =
         progressMap[state.currentPage] + "%";
+
+}
 
 }
 
@@ -49,12 +53,20 @@ function updateBackButton(){
 
     if(state.history.length===0){
 
-        backButton.style.visibility="hidden";
+        if(backButton){
+
+    backButton.style.visibility="hidden";
+
+}
 
     }
     else{
 
-        backButton.style.visibility="visible";
+        if(backButton){
+
+    backButton.style.visibility="visible";
+
+}
 
     }
 
@@ -132,11 +144,25 @@ document
 
                 openButton.classList.add("hide");
 
-                envelope.classList.add("open");
+                if(envelope){
+
+    envelope.classList.add("open");
+
+}
 
                 setTimeout(()=>{
 
-                    showPage(nextPage);
+                    setTimeout(
+
+    ()=>{
+
+        showPage(nextPage);
+
+    },
+
+    1200
+
+);
 
                 },1100);
 
@@ -145,7 +171,17 @@ document
             }
 
 
-            showPage(nextPage);
+            setTimeout(
+
+    ()=>{
+
+        showPage(nextPage);
+
+    },
+
+    1200
+
+);
 
         }
 
