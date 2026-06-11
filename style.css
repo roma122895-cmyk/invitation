@@ -322,13 +322,13 @@ button:active{
 
     position:absolute;
 
-    left:12%;
+    left:10%;
 
-    top:45px;
+    top:25px;
 
-    width:76%;
+    width:80%;
 
-    height:135px;
+    height:150px;
 
     background:white;
 
@@ -342,13 +342,13 @@ button:active{
 
     font-family:'Playfair Display',serif;
 
-    font-size:28px;
+    font-size:30px;
 
     box-shadow:
 
-        0 20px 35px rgba(0,0,0,.12);
+    0 15px 25px rgba(0,0,0,.08);
 
-    z-index:2;
+    z-index:1;
 
     transition:
 
@@ -408,6 +408,14 @@ button:active{
 }
 
 .envelope.open .letter{
+
+    transform:translateY(-110px);
+
+    box-shadow:
+
+        0 25px 40px rgba(0,0,0,.12);
+
+}
 /* OPEN BUTTON */
 
 .open-button{
@@ -626,60 +634,49 @@ h1{
     z-index:4;
 }
 
+.envelope-top{
+    z-index:5;
+}
 
 
+.envelope-left,
+.envelope-right,
+.envelope-bottom{
 
-
-.envelope-back{
-
-    position:absolute;
-
-    inset:0;
-
-    background:#F2E5D8;
-
-    border-radius:14px;
-
-    overflow:hidden;
-
-    box-shadow:
-
-        0 15px 35px rgba(0,0,0,.08);
-
-    z-index:1;
+    display:none;
 
 }
 
-.envelope-back::before{
+.envelope-back{
 
-    content:"";
+    background:#F2E5D8;
 
-    position:absolute;
+    border-radius:12px;
 
-    left:0;
+    overflow:hidden;
 
-    bottom:0;
+}
 
-    width:100%;
+/* ACCESSIBILITY AND SMALL UX IMPROVEMENTS */
 
-    height:95px;
+button:focus-visible{
 
-    background:#E9DACB;
+    outline:3px solid rgba(214,161,159,.45);
+    outline-offset:3px;
 
-    clip-path:polygon(
+}
 
-        0 0,
+.back-button{
 
-        50% 100%,
+    background:transparent;
+    color:#8F8179;
+    border:1px solid rgba(93,83,77,.25);
 
-        100% 0,
+}
 
-        100% 100%,
+.back-button:hover{
 
-        0 100%
-
-    );
-
-    z-index:3;
+    background:rgba(255,255,255,.55);
+    color:#756861;
 
 }
