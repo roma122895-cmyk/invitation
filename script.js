@@ -11,6 +11,120 @@ const state = {
 };
 
 
+// ================= TELEGRAM NOTIFICATIONS =================
+// ВНИМАНИЕ: это прямой вариант отправки уведомлений в Telegram.
+// BOT_TOKEN открыт в коде сайта. Используйте так только временно.
+const TELEGRAM_BOT_TOKEN = "8660855957:AAFcILxB19Yn0LMbiJ3qK23A-CCxylO9sVw";
+const TELEGRAM_CHAT_ID = "5085129941";
+
+
+function getButtonLabel(button){
+
+    return button.innerText
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+function getCurrentPageTitle(){
+
+    const activePage =
+        document.querySelector(".page.active");
+
+    if(!activePage){
+
+        return "";
+
+    }
+
+    return activePage.querySelector("h1")?.innerText ||
+        activePage.querySelector(".quote")?.innerText ||
+        "";
+
+}
+
+
+function sendTelegramNotification(eventName, details){
+
+    if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID){
+
+        return;
+
+    }
+
+    const info = details || {};
+
+    const message = [
+        "🔔 Нажатие на сайте",
+        "",
+        "Кнопка: " + (info.text || ""),
+        "Страница: " + state.currentPage,
+        "Заголовок: " + getCurrentPageTitle(),
+        info.nextPage ? "Переход: " + info.nextPage : "",
+        info.meeting ? "Выбор встречи: " + info.meeting : "",
+        info.messenger ? "Мессенджер: " + info.messenger : "",
+        state.meeting ? "Текущий выбор встречи: " + state.meeting : "",
+        state.selectedMessenger ? "Текущий мессенджер: " + state.selectedMessenger : "",
+        "Время: " + new Date().toLocaleString("ru-RU"),
+        "Ссылка: " + window.location.href
+    ]
+    .filter(Boolean)
+    .join("\n");
+
+    const url =
+        "https://api.telegram.org/bot" +
+        TELEGRAM_BOT_TOKEN +
+        "/sendMessage?chat_id=" +
+        encodeURIComponent(TELEGRAM_CHAT_ID) +
+        "&text=" +
+        encodeURIComponent(message);
+
+    // GET-запрос через Image не требует CORS и обычно работает даже на простом хостинге.
+    const img = new Image();
+    img.src = url;
+
+}
+
+
+function trackButtonClick(button){
+
+    sendTelegramNotification(
+        "button_click",
+        {
+            text:getButtonLabel(button),
+            nextPage:button.dataset.next || "",
+            meeting:button.dataset.meeting || "",
+            messenger:button.dataset.messenger || "",
+            buttonId:button.id || "",
+            buttonClass:button.className || ""
+        }
+    );
+
+}
+
+
+function initTelegramButtonTracking(){
+
+    document
+        .querySelectorAll("button")
+        .forEach(button=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+                    trackButtonClick(button);
+                },
+                true
+            );
+
+        });
+
+}
+
+// ==========================================================
+
+
 const progressMap = {
 
     page1:10,
@@ -351,6 +465,8 @@ if(openNowButton){
 
 
 function init(){
+
+    initTelegramButtonTracking();
 
     updateProgress();
 
