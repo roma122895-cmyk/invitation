@@ -39,12 +39,8 @@ document.getElementById("backButton");
 
 function updateProgress(){
 
-    if(progressFill){
-
     progressFill.style.width =
         progressMap[state.currentPage] + "%";
-
-}
 
 }
 
@@ -53,20 +49,35 @@ function updateBackButton(){
 
     if(state.history.length===0){
 
-        if(backButton){
-
-    backButton.style.visibility="hidden";
-
-}
+        backButton.style.visibility="hidden";
 
     }
     else{
 
-        if(backButton){
+        backButton.style.visibility="visible";
 
-    backButton.style.visibility="visible";
+    }
 
 }
+
+
+function resetFirstPage(){
+
+    const envelope =
+        document.querySelector(".envelope");
+
+    const openButton =
+        document.querySelector(".open-button");
+
+    if(envelope){
+
+        envelope.classList.remove("open");
+
+    }
+
+    if(openButton){
+
+        openButton.classList.remove("hide");
 
     }
 
@@ -81,12 +92,24 @@ function showPage(pageId){
 
     });
 
-    document
-        .getElementById(pageId)
-        .classList
-        .add("active");
+    const targetPage =
+        document.getElementById(pageId);
+
+    if(!targetPage){
+
+        return;
+
+    }
+
+    targetPage.classList.add("active");
 
     state.currentPage = pageId;
+
+    if(pageId === "page1"){
+
+        resetFirstPage();
+
+    }
 
     updateProgress();
 
@@ -144,25 +167,11 @@ document
 
                 openButton.classList.add("hide");
 
-                if(envelope){
-
-    envelope.classList.add("open");
-
-}
+                envelope.classList.add("open");
 
                 setTimeout(()=>{
 
-                    setTimeout(
-
-    ()=>{
-
-        showPage(nextPage);
-
-    },
-
-    1200
-
-);
+                    showPage(nextPage);
 
                 },1100);
 
@@ -171,17 +180,7 @@ document
             }
 
 
-            setTimeout(
-
-    ()=>{
-
-        showPage(nextPage);
-
-    },
-
-    1200
-
-);
+            showPage(nextPage);
 
         }
 
@@ -254,11 +253,14 @@ document
 
 const messengerLinks = {
 
+    // Замените username на реальный Telegram, если он отличается.
     telegram:
-    "https://t.me/USERNAME",
+    "https://t.me/romankyrlig",
 
+    // Замените номер на реальный WhatsApp в международном формате без +.
     whatsapp:
-    "https://wa.me/77000000000?text=Привет😊",
+    "https://wa.me/77000000000?text=" +
+        encodeURIComponent("Привет 😊"),
 
     instagram:
     "https://instagram.com/romankyrlig"
@@ -285,13 +287,8 @@ function openMessenger(){
 
     messengerOpened = true;
 
-    window.open(
-
-        messengerLinks[state.selectedMessenger],
-
-        "_blank"
-
-    );
+    window.location.href =
+        messengerLinks[state.selectedMessenger];
 
 }
 
