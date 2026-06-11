@@ -4,84 +4,133 @@
     box-sizing:border-box;
 }
 
+:root{
+
+    --bg:#F8F4EF;
+    --card:rgba(255,255,255,.75);
+    --text:#5D534D;
+    --button:#D6A19F;
+    --button-hover:#C88D8A;
+
+}
+
 body{
-    background:#F8F4EF;
-    color:#5E534D;
-    font-family: Georgia, serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:'Inter',sans-serif;
+
     overflow-x:hidden;
+
+}
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left,#FDF2EA,transparent),
+    radial-gradient(circle at bottom right,#F4EAE5,transparent);
+
+    z-index:-1;
+
+}
+
+.app{
+
+    min-height:100vh;
+
 }
 
 .page{
+
     min-height:100vh;
 
     display:none;
 
     justify-content:center;
+
     align-items:center;
 
-    padding:20px;
+    padding:25px;
 
     animation:fade .5s ease;
+
 }
 
 .page.active{
+
     display:flex;
+
 }
 
 .card{
 
     width:100%;
-    max-width:520px;
 
-    background:rgba(255,255,255,.75);
+    max-width:540px;
 
-    backdrop-filter:blur(10px);
+    background:var(--card);
+
+    backdrop-filter:blur(12px);
 
     border-radius:30px;
 
     padding:40px 30px;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
-
     text-align:center;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.08);
+
+}
+
+h1{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:clamp(30px,5vw,42px);
+
+    font-weight:400;
+
+    margin-bottom:30px;
+
+}
+
+h2{
+
+    font-family:'Playfair Display',serif;
+
+    font-weight:400;
+
+    margin-bottom:25px;
+
+}
+
+p{
+
+    line-height:1.9;
+
+    font-size:17px;
+
+    margin-bottom:18px;
 
 }
 
 .quote{
 
+    font-family:'Playfair Display',serif;
+
     font-size:30px;
 
     line-height:1.5;
 
-    margin-bottom:70px;
-}
+    margin-bottom:60px;
 
-h1{
-
-    font-weight:400;
-
-    font-size:clamp(30px,5vw,42px);
-
-    margin-bottom:30px;
-}
-
-h2{
-
-    font-weight:400;
-
-    margin-top:20px;
-
-    margin-bottom:20px;
-}
-
-p{
-
-    font-size:18px;
-
-    line-height:1.8;
-
-    margin-bottom:18px;
 }
 
 button{
@@ -90,19 +139,19 @@ button{
 
     border:none;
 
-    background:#D9A5A4;
+    background:var(--button);
 
     color:white;
 
-    border-radius:18px;
-
     padding:18px;
-
-    font-size:17px;
 
     margin-top:15px;
 
+    border-radius:18px;
+
     cursor:pointer;
+
+    font-size:16px;
 
     transition:.3s;
 
@@ -110,20 +159,24 @@ button{
 
 button:hover{
 
-    background:#C98F8E;
+    background:var(--button-hover);
 
     transform:translateY(-2px);
-}
 
+}
 .envelope{
 
     width:260px;
 
     height:180px;
 
-    background:#FFF9F3;
+    margin:auto;
 
-    border-radius:12px;
+    margin-bottom:60px;
+
+    background:#FFF8F3;
+
+    border-radius:14px;
 
     display:flex;
 
@@ -131,15 +184,11 @@ button:hover{
 
     align-items:center;
 
-    margin:auto;
-
-    margin-bottom:60px;
-
     position:relative;
 
-    font-size:32px;
+    font-family:'Playfair Display',serif;
 
-    font-style:italic;
+    font-size:32px;
 
     box-shadow:
     0 10px 25px rgba(0,0,0,.08);
@@ -162,7 +211,79 @@ button:hover{
 
     border-left:130px solid transparent;
     border-right:130px solid transparent;
-    border-top:90px solid #EFE4D7;
+    border-top:90px solid #EEDFD2;
+
+}
+
+.progress-container{
+
+    position:fixed;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:90%;
+
+    max-width:500px;
+
+    z-index:100;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:8px;
+
+    background:rgba(255,255,255,.4);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:10%;
+
+    height:100%;
+
+    background:#D6A19F;
+
+    transition:.4s;
+
+}
+
+.back-container{
+
+    position:fixed;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:100;
+
+}
+
+.back-button{
+
+    width:150px;
+
+    background:#B8ADA7;
+
+}
+
+.back-button:hover{
+
+    background:#A99D96;
 
 }
 
@@ -173,6 +294,7 @@ button:hover{
         opacity:0;
 
         transform:translateY(15px);
+
     }
 
     to{
@@ -180,6 +302,7 @@ button:hover{
         opacity:1;
 
         transform:translateY(0);
+
     }
 
 }
@@ -191,16 +314,19 @@ button:hover{
         padding:30px 22px;
 
         border-radius:25px;
+
     }
 
     .quote{
 
-        font-size:25px;
+        font-size:24px;
+
     }
 
     p{
 
         font-size:16px;
+
     }
 
     .envelope{
@@ -210,6 +336,7 @@ button:hover{
         height:150px;
 
         font-size:28px;
+
     }
 
 }
@@ -219,18 +346,21 @@ button:hover{
     h1{
 
         font-size:30px;
+
     }
 
     .quote{
 
         font-size:22px;
+
     }
 
     button{
 
-        font-size:16px;
-
         padding:16px;
+
+        font-size:15px;
+
     }
 
 }
